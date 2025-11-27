@@ -287,51 +287,55 @@ import UIKit
 import Foundation
 import SwiftUI
 
-struct RazorPayView:UIViewControllerRepresentable {
-    
-    
-    
-    @StateObject var productManagerViewModel: ProductManagerViewModel
-    @State var totalPrice:Int
-    typealias UIViewControllerType = ViewController
-    
-    
-    func makeUIViewController(context: Context) -> ViewController {
-        let vc = ViewController()
-        vc.totalPrice = totalPrice
-        vc.view.backgroundColor = .white
-        vc.productManagerViewModel = productManagerViewModel
-        return vc
+struct RazorPayView: UIViewControllerRepresentable {
+    @ObservedObject var productManagerViewModel: ProductManagerViewModel
+    let totalPrice: Int
+    typealias UIViewControllerType = RazorpayViewController
+
+    func makeUIViewController(context: Context) -> RazorpayViewController {
+        let viewController = RazorpayViewController()
+        viewController.totalPrice = totalPrice
+        viewController.view.backgroundColor = .white
+        viewController.productManagerViewModel = productManagerViewModel
+        return viewController
     }
-    
-    func updateUIViewController(_ uiViewController: ViewController, context: Context) {}
+
+    func updateUIViewController(_ uiViewController: RazorpayViewController, context: Context) {}
 }
 
-class ViewController: UIViewController, RazorpayPaymentCompletionProtocol {
-    @AppStorage ("TabSelection1") var TabSelection = -1
-    var razorpay: RazorpayCheckout!
+final class RazorpayViewController: UIViewController, RazorpayPaymentCompletionProtocol {
+    @AppStorage("TabSelection1") var TabSelection = -1
+    private var razorpay: RazorpayCheckout?
     var totalPrice: Int = 0
-    var gotoHome = false
     var productManagerViewModel: ProductManagerViewModel!
-    override func viewDidLoad(){
+    private var hasPresentedCheckout = false
+
+    override func viewDidLoad() {
         super.viewDidLoad()
         razorpay = RazorpayCheckout.initWithKey("rzp_test_as8Qsyvi6jv8By", andDelegate: self)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.showPaymentForm()
-        print("view appeared ...fkdsflsdf")
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard !hasPresentedCheckout else { return }
+        hasPresentedCheckout = true
+        DispatchQueue.main.async { [weak self] in
+            self?.showPaymentForm()
+        }
     }
-    
-    
-    func showPaymentForm() {
-        let options: [String:Any] = [
-            "amount": "\(totalPrice * 100)", //This is in currency subunits. 100 = 100 paise= INR 1.
-            "currency": "INR",//We support more that 92 international currencies.
-            "description": " one and only app you need",
+
+    private func showPaymentForm() {
+        guard totalPrice > 0 else {
+            presentAlert(withTitle: "Alert", message: "Cart total should be greater than zero.")
+            return
+        }
+
+        let options: [String: Any] = [
+            "amount": "\(totalPrice * 100)", // value in the smallest currency unit
+            "currency": "INR",
+            "description": "one and only app you need",
             "name": "FashionStore Products",
-            "profile": [
+            "prefill": [
                 "contact": "9797979797",
                 "email": "foo@bar.com"
             ],
@@ -341,29 +345,29 @@ class ViewController: UIViewController, RazorpayPaymentCompletionProtocol {
             "key": "rzp_test_as8Qsyvi6jv8By"
         ]
         print(options)
-        razorpay.open(options)
+        razorpay?.open(options, displayController: self)
     }
-    
 
     func onPaymentError(_ code: Int32, description str: String) {
-        print("error: ", code, str)
-        self.presentAlert(withTitle: "Alert", message: str)
+        print("error:", code, str)
+        presentAlert(withTitle: "Alert", message: str)
     }
 
     func onPaymentSuccess(_ payment_id: String) {
-        print("success: ", payment_id)
-        self.presentAlert(withTitle: "Success", message: "Payment Succeeded")
+        print("success:", payment_id)
+        presentAlert(withTitle: "Success", message: "Payment Succeeded")
         productManagerViewModel.removeAllFromCart()
     }
 
-    func presentAlert(withTitle title: String, message: String) {
+    private func presentAlert(withTitle title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: {_ in 
-            print("Ok action tapped")
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+            guard let self = self else { return }
             self.TabSelection = 0
             self.navigationController?.popToRootViewController(animated: true)
+            self.dismiss(animated: true)
         })
         alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
 }

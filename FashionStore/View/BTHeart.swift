@@ -11,19 +11,21 @@ struct BTHeart: View {
     @EnvironmentObject var productManagerVM: ProductManagerViewModel
     @State var isFav: Bool = false
     var product: Product
-    let action: () -> ()
+    let action: () -> Void
+
     var body: some View {
         HStack {
             Spacer()
             Button {
-                if product.isFavorite {
-                  productManagerVM.addToWishlist(product: product)
+                isFav.toggle()
+                action()
+                if isFav {
+                    productManagerVM.addToWishlist(product: product)
                 } else {
                     productManagerVM.removeFromWishlist(product: product)
                 }
-                isFav.toggle()
             } label: {
-                Image(systemName: isFav ? "heart.fill" : "heart" )
+                Image(systemName: isFav ? "heart.fill" : "heart")
                     .font(.system(size: 17))
                     .foregroundStyle(Color("AccentColor2"))
                     .cornerRadius(50)
