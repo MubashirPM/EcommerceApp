@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct ProductView: View {
     
@@ -16,7 +17,13 @@ struct ProductView: View {
     
     var product: Product
     
+    private var isInWishlist: Bool {
+        productManagerVM.isInWishlist(product: product)
+    }
+    
     var body: some View {
+        ZStack {
+            // Main content
             ZStack {
                 Color("AccentColor")
                     .ignoresSafeArea(.all)
@@ -36,8 +43,8 @@ struct ProductView: View {
                                         .frame(width: UIScreen.main.bounds.width, height: 400)
                                 }
                                 .overlay(alignment: .bottomTrailing) {
-                                    BTHeart(isFav: isFav, product: product) {
-                                        isFav.toggle()
+                                    BTHeart(product: product) {
+                                        // Action handled inside BTHeart
                                     }
                                     .padding(45)
                                 }
@@ -88,6 +95,14 @@ struct ProductView: View {
                     }
             })
             .navigationBarBackButtonHidden()
+            .toast(isPresenting: $productManagerVM.showToast) {
+                AlertToast(type: .regular, title: productManagerVM.toastMessage)
+            }
+            .onAppear {
+                // Initialize isFav based on actual wishlist state
+                isFav = productManagerVM.isInWishlist(product: product)
+            }
+        }
     }
 }
 

@@ -29,6 +29,8 @@ class ProductManagerViewModel: ObservableObject {
     @Published var tshirtList: [Product] = []
     @Published var shoesList: [Product] = []
     @Published var profileImage = [UIImage?]()
+    @Published var showToast = false
+    @Published var toastMessage = ""
     
     //MARK: Product Crud Logic☑️.
     
@@ -61,12 +63,19 @@ class ProductManagerViewModel: ObservableObject {
     func addtoCart(product: Product) {
         if let existingProduct = cartProducts.first(where: { $0.product == product }) {
             existingProduct.productCount += 1
+            toastMessage = "\(product.name) quantity updated in cart"
         } else {
-            
             let cartProduct = CartProduct(product: product)
             cartProducts.append(cartProduct)
+            toastMessage = "\(product.name) added to cart"
         }
         cartTotal += product.price
+        showToast = true
+        
+        // Hide toast after 2 seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.showToast = false
+        }
         print("\(products.count)😎Cart")
     }
     
@@ -137,6 +146,10 @@ class ProductManagerViewModel: ObservableObject {
             wishlistProducts.remove(at: index)
         }
         wishlistTotal -= product.price
+    }
+    
+    func isInWishlist(product: Product) -> Bool {
+        return wishlistProducts.contains(where: { $0.product == product })
     }
     
     

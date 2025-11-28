@@ -9,23 +9,25 @@ import SwiftUI
 
 struct BTHeart: View {
     @EnvironmentObject var productManagerVM: ProductManagerViewModel
-    @State var isFav: Bool = false
     var product: Product
     let action: () -> Void
+    
+    private var isInWishlist: Bool {
+        productManagerVM.isInWishlist(product: product)
+    }
 
     var body: some View {
         HStack {
             Spacer()
             Button {
-                isFav.toggle()
                 action()
-                if isFav {
-                    productManagerVM.addToWishlist(product: product)
-                } else {
+                if isInWishlist {
                     productManagerVM.removeFromWishlist(product: product)
+                } else {
+                    productManagerVM.addToWishlist(product: product)
                 }
             } label: {
-                Image(systemName: isFav ? "heart.fill" : "heart")
+                Image(systemName: isInWishlist ? "heart.fill" : "heart")
                     .font(.system(size: 17))
                     .foregroundStyle(Color("AccentColor2"))
                     .cornerRadius(50)
@@ -36,13 +38,13 @@ struct BTHeart: View {
         }
     }
 }
-#Preview {
-    BTHeart(isFav: true, product: productList[1], action: {})
-        .environmentObject(ProductManagerViewModel())
-        .preferredColorScheme(.dark)
-}
-
-
+//#Preview {
+//    BTHeart(isFav: true, product: productList[1], action: {})
+//        .environmentObject(ProductManagerViewModel())
+//        .preferredColorScheme(.dark)
+//}
+//
+//
 
 
 

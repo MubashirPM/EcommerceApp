@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB083D592ED895E900576504 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = DB083D582ED895E900576504 /* AlertToast */; };
 		DB28CC752AEB800A00DBA453 /* DeliveryAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB28CC742AEB800A00DBA453 /* DeliveryAddress.swift */; };
 		DB3C8B9F2B342F860057818B /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3C8B9E2B342F860057818B /* AddressModel.swift */; };
 		DB3C8BA12B346B820057818B /* AddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3C8BA02B346B820057818B /* AddressViewModel.swift */; };
@@ -19,6 +20,7 @@
 		DB6CA1EF2AE2F1480012339F /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6CA1EE2AE2F1480012339F /* ProfileView.swift */; };
 		DB6CA1F12AE30E770012339F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6CA1F02AE30E770012339F /* User.swift */; };
 		DB6CA1F32AE3109D0012339F /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6CA1F22AE3109D0012339F /* AuthViewModel.swift */; };
+		DB6CA1F52AE2F1490012339F /* PersonalDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6CA1F42AE2F1490012339F /* PersonalDetailsView.swift */; };
 		DB6E66612AE9440700C424C2 /* MyOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E66602AE9440700C424C2 /* MyOrder.swift */; };
 		DB6E66632AE974E600C424C2 /* MyCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E66622AE974E600C424C2 /* MyCart.swift */; };
 		DB6FF3972ACFEE4D003E8541 /* CustomTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6FF3962ACFEE4D003E8541 /* CustomTF.swift */; };
@@ -81,6 +83,7 @@
 		DB6CA1EE2AE2F1480012339F /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		DB6CA1F02AE30E770012339F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DB6CA1F22AE3109D0012339F /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		DB6CA1F42AE2F1490012339F /* PersonalDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetailsView.swift; sourceTree = "<group>"; };
 		DB6E66602AE9440700C424C2 /* MyOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrder.swift; sourceTree = "<group>"; };
 		DB6E66622AE974E600C424C2 /* MyCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCart.swift; sourceTree = "<group>"; };
 		DB6FF3962ACFEE4D003E8541 /* CustomTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTF.swift; sourceTree = "<group>"; };
@@ -119,6 +122,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBBF95892B39C03A002593B8 /* Razorpay.xcframework in Frameworks */,
+				DB083D592ED895E900576504 /* AlertToast in Frameworks */,
 				DB7B1CD82ED6265100357CC2 /* FirebaseCore in Frameworks */,
 				DB7B1CDA2ED6265100357CC2 /* FirebaseDatabase in Frameworks */,
 				DB7B1CDC2ED6265100357CC2 /* FirebaseFirestore in Frameworks */,
@@ -232,14 +236,15 @@
 				DB46CBF52AEFC34B0040377B /* WishlistView.swift */,
 				DB6E66602AE9440700C424C2 /* MyOrder.swift */,
 				DB6CA1EE2AE2F1480012339F /* ProfileView.swift */,
+				DB6CA1F42AE2F1490012339F /* PersonalDetailsView.swift */,
 				DB46E1FD2AF61E6E00CFA2E8 /* ViewAll.swift */,
 				DB6E66622AE974E600C424C2 /* MyCart.swift */,
-				DB28CC742AEB800A00DBA453 /* DeliveryAddress.swift */,
 				DB58866A2B34AABC00F90757 /* AddressEditing.swift */,
 				DB46CBF32AEE499F0040377B /* Payment.swift */,
 				DBBF95852B39BBB6002593B8 /* RazorpayView.swift */,
 				DBBF95872B39BFED002593B8 /* Razorpay.xcframework */,
 				DB686B162ADDB342003B1A79 /* CartButton.swift */,
+				DB28CC742AEB800A00DBA453 /* DeliveryAddress.swift */,
 				DB686B142ADBB8EA003B1A79 /* BTHeart.swift */,
 				DB92EE5B2AD6B7F300EA2B1A /* Login */,
 			);
@@ -281,6 +286,7 @@
 				DB7B1CD92ED6265100357CC2 /* FirebaseDatabase */,
 				DB7B1CDB2ED6265100357CC2 /* FirebaseFirestore */,
 				DB7B1CDD2ED6265100357CC2 /* FirebaseStorage */,
+				DB083D582ED895E900576504 /* AlertToast */,
 			);
 			productName = FashionStore;
 			productReference = DB76FFB92ACBD6F200AEDD9F /* FashionStore.app */;
@@ -312,6 +318,7 @@
 			mainGroup = DB76FFB02ACBD6F200AEDD9F;
 			packageReferences = (
 				DB7B1CD42ED6265100357CC2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				DB083D572ED895E900576504 /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = DB76FFBA2ACBD6F200AEDD9F /* Products */;
 			projectDirPath = "";
@@ -365,6 +372,7 @@
 				DB92EE602AD6DEC200EA2B1A /* DataModel.swift in Sources */,
 				DB686B152ADBB8EB003B1A79 /* BTHeart.swift in Sources */,
 				DB6CA1EF2AE2F1480012339F /* ProfileView.swift in Sources */,
+				DB6CA1F52AE2F1490012339F /* PersonalDetailsView.swift in Sources */,
 				DB6FF39B2AD04186003E8541 /* Signin.swift in Sources */,
 				DB6E66612AE9440700C424C2 /* MyOrder.swift in Sources */,
 				DB6FF39F2AD087E4003E8541 /* HomeView.swift in Sources */,
@@ -595,6 +603,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		DB083D572ED895E900576504 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.9;
+			};
+		};
 		DB7B1CD42ED6265100357CC2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -606,6 +622,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DB083D582ED895E900576504 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB083D572ED895E900576504 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
+		};
 		DB7B1CD52ED6265100357CC2 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DB7B1CD42ED6265100357CC2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

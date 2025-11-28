@@ -363,17 +363,19 @@ struct TopItems: View {
                     VStack {
                         Button(action: {
                             action()
+                            if productManagerVM.isInWishlist(product: product) {
+                                productManagerVM.removeFromWishlist(product: product)
+                            } else {
+                                productManagerVM.addToWishlist(product: product)
+                            }
                         }, label: {
-                            Image(systemName: product.isFavorite ? "heart.fill" : "heart" )
+                            Image(systemName: productManagerVM.isInWishlist(product: product) ? "heart.fill" : "heart")
                                 .font(.title3)
                                 .foregroundStyle(.black)
                                 .cornerRadius(50)
                                 .padding(7)
                         })
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                        .onTapGesture {
-                            productManagerVM.addToWishlist(product: product)
-                        }
                     }
                     .padding(10)
                 }
